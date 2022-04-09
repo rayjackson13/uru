@@ -5,14 +5,21 @@ import { Scene, Vector3, ArcRotateCamera } from 'babylonjs';
  * Camera is targeted to scene origin and attached to canvas.
  */
 export const createCamera = (scene: Scene, targetPosition: Vector3) => {
-  const camera = new ArcRotateCamera('camera', 0, 1, 12, targetPosition, scene);
+  const camera = new ArcRotateCamera(
+    'camera',
+    0,
+    1.2,
+    20,
+    targetPosition,
+    scene
+  );
   camera.setTarget(Vector3.Zero());
   camera.attachControl(false);
   camera.allowUpsideDown = false;
   camera.panningSensibility = 200;
   camera.minZ = 0;
   camera.lowerRadiusLimit = 2;
-  camera.upperRadiusLimit = 15;
+  camera.upperRadiusLimit = 25;
   camera.lowerBetaLimit = 0;
   camera.upperBetaLimit = Math.PI / 2;
   camera.allowUpsideDown = false;

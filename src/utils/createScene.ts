@@ -20,19 +20,19 @@ import { createCamera } from './createCamera';
 const createLight = (scene: Scene): Light => {
   const light = new DirectionalLight(
     'light',
-    new Vector3(-0.75, -1, 0.25),
+    new Vector3(-0.75, -0.7, 0.25),
     scene
   );
-  light.intensity = 20;
+  light.intensity = 10;
 
   return light;
 };
 
 const createEnvironment = (scene: Scene, shadowGenerator: ShadowGenerator) => {
   const boxMaterial = new PBRMaterial('boxMaterial', scene);
-  boxMaterial.metallic = 3;
-  boxMaterial.roughness = 1;
-  boxMaterial.albedoColor = new Color3(0.7);
+  boxMaterial.metallic = 1;
+  boxMaterial.roughness = 0.8;
+  boxMaterial.albedoColor = new Color3(0.7, 0.4, 0.3);
   const box = MeshBuilder.CreateBox(
     'sphere',
     {
@@ -54,14 +54,14 @@ const createEnvironment = (scene: Scene, shadowGenerator: ShadowGenerator) => {
   const ground = MeshBuilder.CreateBox(
     'ground',
     {
-      size: 6,
-      height: 0.5,
+      size: 20,
+      height: 1,
       updatable: false,
     },
     scene
   );
   ground.material = groundMaterial;
-  ground.position.y = -0.75;
+  ground.position.y = -1;
   ground.receiveShadows = true;
 
   return ground.position;
@@ -80,10 +80,10 @@ export const createScene = (canvas: HTMLCanvasElement, engine: Engine) => {
   scene.createDefaultEnvironment({ createSkybox: false, createGround: false });
   scene.ambientColor = new Color3(1, 0, 0);
   scene.clearColor = new Color4(0.429, 0.608, 0.822, 1);
-  scene.fogEnabled = true;
-  scene.fogColor = new Color3(0.5, 0.5, 0.5);
-  scene.fogDensity = 0.05;
-  scene.fogMode = 1;
+  // scene.fogEnabled = true;
+  // scene.fogColor = new Color3(0.5, 0.5, 0.5);
+  // scene.fogDensity = 0.05;
+  // scene.fogMode = 1;
 
   const light = createLight(scene);
   const shadowGenerator = createShadowGenerator(light);
