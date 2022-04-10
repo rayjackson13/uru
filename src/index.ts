@@ -10,7 +10,7 @@ const engine = new Engine(canvas, true, {
   stencil: true,
 });
 
-Playground(canvas, engine);
+Playground(engine);
 
 // the canvas/window resize event handler
 window.addEventListener('resize', () => {

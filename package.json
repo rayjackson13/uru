@@ -11,7 +11,6 @@
   "author": "rayjackson13",
   "license": "ISC",
   "devDependencies": {
-    "@types/p5": "^1.4.0",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "css-loader": "^6.5.1",

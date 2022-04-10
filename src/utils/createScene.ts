@@ -13,6 +13,7 @@ import {
 } from 'babylonjs';
 
 import { createCamera } from './createCamera';
+import { createGround } from './createGround';
 
 /**
  * Creates a basic light, aiming 0, 1, 0 - meaning, to the sky.
@@ -47,24 +48,7 @@ const createEnvironment = (scene: Scene, shadowGenerator: ShadowGenerator) => {
   box.position.y = 0;
   shadowGenerator.addShadowCaster(box, true);
 
-  const groundMaterial = new PBRMaterial('groundMaterial', scene);
-  groundMaterial.albedoColor = new Color3(0.36, 0.8, 0.2);
-  groundMaterial.metallic = 3;
-  groundMaterial.roughness = 0.8;
-  const ground = MeshBuilder.CreateBox(
-    'ground',
-    {
-      size: 20,
-      height: 1,
-      updatable: false,
-    },
-    scene
-  );
-  ground.material = groundMaterial;
-  ground.position.y = -1;
-  ground.receiveShadows = true;
-
-  return ground.position;
+  return createGround(scene);
 };
 
 const createShadowGenerator = (light: Light) => {
@@ -75,20 +59,16 @@ const createShadowGenerator = (light: Light) => {
   return shadowGenerator;
 };
 
-export const createScene = (canvas: HTMLCanvasElement, engine: Engine) => {
+export const createScene = (engine: Engine) => {
   const scene = new Scene(engine);
   scene.createDefaultEnvironment({ createSkybox: false, createGround: false });
   scene.ambientColor = new Color3(1, 0, 0);
   scene.clearColor = new Color4(0.429, 0.608, 0.822, 1);
-  // scene.fogEnabled = true;
-  // scene.fogColor = new Color3(0.5, 0.5, 0.5);
-  // scene.fogDensity = 0.05;
-  // scene.fogMode = 1;
 
   const light = createLight(scene);
   const shadowGenerator = createShadowGenerator(light);
-  const centerPosition = createEnvironment(scene, shadowGenerator);
-  createCamera(scene, centerPosition);
+  const ground = createEnvironment(scene, shadowGenerator);
+  createCamera(scene, ground.position);
 
   // Return the created scene
   return scene;
