@@ -1,4 +1,9 @@
-import { Scene, Vector3, ArcRotateCamera } from 'babylonjs';
+import {
+  Scene,
+  Vector3,
+  ArcRotateCamera,
+  ArcRotateCameraPointersInput,
+} from 'babylonjs';
 
 /**
  * Creates a FreeCamera with position set to { x: 0, y: 5, z: -10 }.
@@ -17,6 +22,9 @@ export const createCamera = (scene: Scene, targetPosition: Vector3) => {
   camera.attachControl(false);
   camera.allowUpsideDown = false;
   camera.panningSensibility = 200;
+  const { attached } = camera.inputs;
+  (attached.pointers as ArcRotateCameraPointersInput).buttons = [1, 2];
+
   camera.minZ = 0;
   camera.lowerRadiusLimit = 2;
   camera.upperRadiusLimit = 25;
